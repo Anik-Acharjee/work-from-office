@@ -1,14 +1,25 @@
-//Income 
 
-document.getElementById('calculate-btn').addEventListener('click', function () {
+function expItem(food, rent, cloth) {
+
+    return Number(food) + Number(rent) + Number(cloth);
+
+}
+
+
+
+
+function totalExpAndBalance() {
+
+
+    // Income 
 
     const totalIncome = document.getElementById('income');
     const incomeAmount = parseFloat(totalIncome.value);
 
+    //warning
+    const warning = document.getElementById('type-amount');
 
-    // // totalIncome.value = '';
-
-
+    //exp Items
 
     const foodExp = document.getElementById('food-exp');
     const foodExpAmount = parseFloat(foodExp.value);
@@ -19,25 +30,57 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
     const clothExp = document.getElementById('cloth-exp');
     const clothExpAmount = parseFloat(clothExp.value);
 
+
+
     // Total Exp
 
-
-    const totalExpAmount = foodExpAmount + rentExpAmount + clothExpAmount;
-
+    const totalExpAmount = expItem(foodExpAmount, rentExpAmount, clothExpAmount);
     const totalExp = document.getElementById('total-exp');
-    const totalExpText = totalExp.innerText;
-
     totalExp.innerText = totalExpAmount;
-
 
 
 
     // total Balance Amount
 
-
     const totalBalance = document.getElementById('total-balance');
-    const totalBalanceText = totalBalance.innerText;
-    totalBalance.innerText = incomeAmount - totalExpAmount;
+    totalBalance.innerText = parseFloat(incomeAmount - totalExpAmount);
+
+
+    //Error Check
+
+    if (isNaN(incomeAmount, foodExpAmount, rentExpAmount, clothExpAmount)) {
+
+        warning.style.display = 'block';
+        totalExp.innerText = '';
+        totalBalance.innerText = '';
+    }
+    else {
+
+    }
+
+
+
+};
+
+
+
+function savingField(totalBalance) {
+
+    const saveInput = document.getElementById('save-input');
+    saveInputAmount = parseFloat(saveInput.value);
+
+    //saving amount
+
+    const savingAmount = document.getElementById('saving-amount');
+    savingAmount.innerText = totalBalance.innerText;
+
+    // console.log(savingAmount.innerText);
+
+
+    const remainingInput = document.getElementById('remaining-balance');
+    remainingInput.innerText = totalBalance.innerText;
+
+};
 
 
 
@@ -49,48 +92,24 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
 
 
 
-    // const inputFeild = document.getElementById('clear-btn');
-    // inputFeild.addEventListener('click', () {
-    //     foodExp.value = '';
-    //     rentExp.value = '';
-    //     clothExp.value = '';
 
-    // })
+// event click calculate btn
 
-    // console.log(inputFeild);
+document.getElementById('calculate-btn').addEventListener('click', function () {
 
-})
+    totalExpAndBalance();
 
+});
+
+// event click save  btn 
 
 document.getElementById('save-btn').addEventListener('click', function () {
 
-
-    const saveInput = document.getElementById('save-input');
-    const savePercent = parseFloat(saveInput.value);
-
-
-    //savein amount
-
-    const savingAmount = document.getElementById('saving-amount');
-    const saveAmountText = savingAmount.innerText;
-    const totalSavingAmount = incomeAmount / savePercent;
-
-    savingAmount.innerText = saveAmountText;
+    savingField(totalExpAndBalance);
+    totalExpAndBalance()
 
 
 
-    console.log(totalSavingAmount);
 });
 
 
-
-function doubleIt(num) {
-    const result = num * 3;
-    return result;
-}
-
-
-const five = doubleIt(5);
-const two = doubleIt(2);
-
-console.log(five, two);
